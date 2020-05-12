@@ -14,7 +14,7 @@ variables:
   # containerRegistryDockerConnection: 'acr'
   # environment: 'aks.default'
 - name: imageRepository
-  value: 'delivery'
+  value: 'gateway'
 - name: dockerfilePath
   value: '**/Dockerfile'
 - name: tag
@@ -26,7 +26,6 @@ variables:
   value: $(Pipeline.Workspace)/.m2/repository
 - name: MAVEN_OPTS
   value: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
-
 
 stages:
 - stage: Build
@@ -48,7 +47,7 @@ stages:
         - task: Maven@3
           inputs:
             mavenPomFile: 'pom.xml'
-            options: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
+            options: '-Dmaven.test.skip=true -Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
             javaHomeOption: 'JDKVersion'
             jdkVersionOption: '1.8'
             jdkArchitectureOption: 'x64'
@@ -61,7 +60,6 @@ stages:
             Dockerfile: '**/Dockerfile'
             tags: |
               $(tag)
-
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
@@ -115,7 +113,7 @@ stages:
                                 failureThreshold: 10
                               livenessProbe:
                                 httpGet:
-                                  path: /products/1
+                                  path: /actuator/health
                                   port: 8080
                                 initialDelaySeconds: 120
                                 timeoutSeconds: 2
