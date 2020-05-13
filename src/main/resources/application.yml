@@ -46,7 +46,7 @@ spring:
         - id: Customer
           uri: http://Customer:8080
           predicates:
-            - Path=/orders/** /orderStatuses/**
+            - Path=/orders/**, /orderStatuses/**
         - id: SMSExternal
           uri: http://SMSExternal:8080
           predicates:
