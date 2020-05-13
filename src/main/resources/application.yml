@@ -58,7 +58,15 @@ spring:
         - id: Delivery
           uri: http://Delivery:8080
           predicates:
-            - Path=/deliveries/** 
+            - Path=/deliveries/**
+        - id: account
+          uri: http://account:8080
+          predicates:
+            - Path=/accountings/**
+        - id: headquaters
+          uri: http://headquaters:8080
+          predicates:
+            - Path=/headquaterses/**
       globalcors:
         corsConfigurations:
           '[/**]':
