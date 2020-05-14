@@ -11,7 +11,7 @@ spring:
         - id: Customer
           uri: http://localhost:8081
           predicates:
-            - Path=/orders/** /orderStatuses/**
+            - Path=/orders/**, /orderStatuses/**
         - id: SMSExternal
           uri: http://localhost:8082
           predicates:
@@ -46,7 +46,7 @@ spring:
         - id: Customer
           uri: http://Customer:8080
           predicates:
-            - Path=/orders/** /orderStatuses/**
+            - Path=/orders/**, /orderStatuses/**
         - id: SMSExternal
           uri: http://SMSExternal:8080
           predicates:
@@ -58,7 +58,15 @@ spring:
         - id: Delivery
           uri: http://Delivery:8080
           predicates:
-            - Path=/deliveries/** 
+            - Path=/deliveries/**
+        - id: account
+          uri: http://account:8080
+          predicates:
+            - Path=/accountings/**, /accountingStatisticses/**
+        - id: headquaters
+          uri: http://headquaters:8080
+          predicates:
+            - Path=/headquaterses/**
       globalcors:
         corsConfigurations:
           '[/**]':
